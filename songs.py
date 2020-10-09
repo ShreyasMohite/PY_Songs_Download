@@ -9,7 +9,8 @@ import tkinter.messagebox
 import requests
 from bs4 import BeautifulSoup
 from tkinter.ttk import Notebook,Progressbar,Combobox
-
+import threading
+import time
 
 
 class Songs:
@@ -122,84 +123,102 @@ class Songs:
                 else:
                 
                     with open("C:\\TEMP\\songs.txt","w") as f:
+                        time.sleep(0.3)
 
-                        if website.get()=="talk2trend/bollywood":
+                        if website.get()=="talk2trend-bollywood":
                             website_url.set("https://www.talk2trend.com/bollywood-songs-mp3-download.html")
                             response = requests.get(website_url.get())
                             Soup=BeautifulSoup(response.text,"html.parser")
-                            gather=Soup.findAll("a")
-                            names=set(gather)
-                            for name in names:
-                                f.write("\n")
-                                f.write(name.get("href"))
+                            gather=Soup.findAll("td")
+                            for childrens in gather:
+                                child=childrens.findChildren("a",recursive=True)
+                                for childs in child:
+                                    f.write("\n")
+                                    f.write(childs.get("href"))
+                                    f.write("\n")
 
 
-                        if website.get()=="talk2trend/english":
+                        if website.get()=="talk2trend-english":
                             website_url.set("https://www.talk2trend.com/english-songs-mp3-download.html")
                             response = requests.get(website_url.get())
                             Soup=BeautifulSoup(response.text,"html.parser")
-                            gather=Soup.findAll("a")
-                            names=set(gather)
-                            for name in names:
-                                f.write("\n")
-                                f.write(name.get("href"))
+                            gather=Soup.findAll("td")
+                            for childrens in gather:
+                                child=childrens.findChildren("a",recursive=True)
+                                for childs in child:
+                                    f.write("\n")
+                                    f.write(childs.get("href"))
+                                    f.write("\n")
+                                    
+            
+                           
+
+                         
+                                    
+##                            gather=Soup.findAll("td")
+##                            for childrens in gather:
+##                                child=childrens.findChildren("a",recursive=True)
+##                                for childs in child:
+##                                    print(childs.get("href"))
+
+
+                        
                             
 
-                            '''
+                          
 
-                        if website.get()=="ncs/15":
-                            website_url.set("https://instrumentalfx.co/download-top-15-best-no-copyright-songs-ncs-2017/")
-                            response = requests.get(website_url.get())
-                            Soup=BeautifulSoup(response.text,"html.parser")
-                            gather=Soup.findAll("a")
-                            names=set(gather)
-                            for name in names:
-                                f.write("\n")
-                                f.write(name.get("href"))
-                                '''
-
-                        if website.get()=="filmisongs/english":
+                        if website.get()=="filmisongs-english":
                             website_url.set("https://filmisongs.com/english-mp3-songs-download/page/1/")
                             response = requests.get(website_url.get())
                             Soup=BeautifulSoup(response.text,"html.parser")
-                            gather=Soup.findAll("a")
-                            names=set(gather)
-                            for name in names:
-                                f.write("\n")
-                                f.write(name.get("href"))
+                            gather=Soup.findAll("h2",class_="post-title")
+                            for childrens in gather:
+                                child=childrens.findChildren("a",recursive=True)
+                                for childs in child:
+                                    f.write("\n")
+                                    f.write(childs.get("href"))
+                                    f.write("\n")
 
-                        if website.get()=="random/filmisongs/cdn":
-                            #website_url.set("https://filmisongs.com/english-mp3-songs-download/page/1/")
+
+                        if website.get()=="filmisongs-cdn":
                             response = requests.get(website_url.get())
                             Soup=BeautifulSoup(response.text,"html.parser")
                             gather=Soup.findAll("a",class_="button")
                             for name in gather:
                                 f.write("\n")
                                 f.write(name.get("href"))
+                                
 
-                        if website.get()=="Any":                            
+                        if website.get()=="filmisongs":                            
                             response = requests.get(website_url.get())
                             Soup=BeautifulSoup(response.text,"html.parser")
-                            gather=Soup.findAll("a")
-                            names=set(gather)
-                            for name in names:
-                                f.write("\n")
-                                f.write(name.get("href"))
+                            gather=Soup.findAll("h2",class_="post-title")
+                            for childrens in gather:
+                                child=childrens.findChildren("a",recursive=True)
+                                for childs in child:
+                                    f.write("\n")
+                                    f.write(childs.get("href"))
+                                    f.write("\n")
+
+                                    #filmisongs-bollywood
+                                    #https://filmisongs.com/bollywood-movies-mp3-songs-download/page/1/
 
 
-                        if website.get()=="filmisongs/bollywood":
+                        if website.get()=="filmisongs-bollywood":
                             website_url.set("https://filmisongs.com/bollywood-movies-mp3-songs-download/page/1/")
                             response = requests.get(website_url.get())
                             Soup=BeautifulSoup(response.text,"html.parser")
-                            gather=Soup.findAll("a")
-                            names=set(gather)
-                            for name in names:
-                                f.write("\n")
-                                f.write(name.get("href"))
-                            
+                            gather=Soup.findAll("h2",class_="post-title")
+                            for childrens in gather:
+                                child=childrens.findChildren("a",recursive=True)
+                                for childs in child:
+                                    f.write("\n")
+                                    f.write(childs.get("href"))
+                                    f.write("\n")
 
-                        if website.get()=="songsmp3/yoyohoneysingh":                                                        
-                            website_url.set("https://www.songsmp3.biz/singers/yo-yo-honey-singh/page-1.html")
+
+                        if website.get()=="songsmp3":                                                        
+                            #website_url.set("https://www.songsmp3.biz/singers/yo-yo-honey-singh/page-1.html")
                             response = requests.get(website_url.get())
                             Soup=BeautifulSoup(response.text,"html.parser")
                             gather=Soup.findAll("a",class_="dowbut")
@@ -207,9 +226,22 @@ class Songs:
                             for name in names:
                                 f.write("\n")
                                 f.write("https://www.songsmp3.biz{}".format(name.get("href")))
+                                f.write("\n")
+                            
+
+                        if website.get()=="songsmp3-yoyohoneysingh":                                                        
+                            website_url.set("https://www.songsmp3.biz/singers/yo-yo-honey-singh/page-2.html")
+                            response = requests.get(website_url.get())
+                            Soup=BeautifulSoup(response.text,"html.parser")
+                            gather=Soup.findAll("a",class_="dowbut")
+                            names=set(gather)
+                            for name in names:
+                                f.write("\n")
+                                f.write("https://www.songsmp3.biz{}".format(name.get("href")))
+                                f.write("\n")
 
 
-                        if website.get()=="songsmp3/download":                                                        
+                        if website.get()=="songsmp3-download":                                                        
                             #website_url.set("https://www.songsmp3.biz/singers/yo-yo-honey-singh/page-1.html")
                             response = requests.get(website_url.get())
                             Soup=BeautifulSoup(response.text,"html.parser")
@@ -218,11 +250,7 @@ class Songs:
                             for name in names:
                                 f.write("\n")
                                 f.write(name.get("href"))
-
-
-                        
-                            
-
+                                f.write("\n")
 
 
                         #https://www.songsmp3.biz/category/top?type=today
@@ -241,6 +269,7 @@ class Songs:
 
         def download():
             try:
+                prg.start(10)
                 if song_name.get()=="" and song_url.get()=="":
                     tkinter.messagebox.showerror("Error","please enter song name and url")
                 elif song_name.get()=="":
@@ -248,10 +277,29 @@ class Songs:
                 else:
                     url=song_url.get()
                     r = requests.get(url)
+                    self.root.update()                    
                     with open('C:/Users/SHREYAS/Desktop/shreyas python/Songsdownload/{}.mp3'.format(song_name.get()), 'wb') as f:
                         f.write(r.content)
+                        prg.stop()
             except:
                 pass
+
+
+
+        def starts():
+             t2=threading.Thread(target=download)
+             t2.start()
+        
+             
+
+        
+            
+            
+
+
+
+        
+       
 
         
         def websites():
@@ -316,6 +364,9 @@ class Songs:
             mess_10.place(x=10,y=205)
 
             root2.mainloop()
+
+
+
 
 
         def Sourcecode():
@@ -414,7 +465,7 @@ class Songs:
         Ent_save_as_name.place(x=230,y=105)
 
 
-        but_download_songs=Button(download_songs,text="Download",font=('times new roman',12,"bold"),width=15,cursor="hand2",command=download)
+        but_download_songs=Button(download_songs,text="Download",font=('times new roman',12,"bold"),width=15,cursor="hand2",command=starts)
         but_download_songs.place(x=260,y=170)
         but_download_songs.bind("<Enter>",on_enter4)
         but_download_songs.bind("<Leave>",on_leave4)
@@ -432,7 +483,7 @@ class Songs:
         lab_web.place(x=20,y=10)
         
 
-        list_websites=["Any","random/filmisongs/cdn","talk2trend/bollywood","talk2trend/english","ncs/15","filmisongs/bollywood","filmisongs/english","songsmp3/yoyohoneysingh","songsmp3/download"]
+        list_websites=["filmisongs","filmisongs-cdn","talk2trend-bollywood","talk2trend-english","filmisongs-bollywood","filmisongs-english","songsmp3","songsmp3-yoyohoneysingh","songsmp3-download"]
         list_websites_combo=Combobox(scrape_songs,values=list_websites,font=('arial',10),width=19,state="readonly",textvariable=website)
         list_websites_combo.set("select websites")
         list_websites_combo.place(x=180,y=10)
@@ -479,3 +530,4 @@ if __name__ == "__main__":
     root=Tk()
     app=Songs(root)
     root.mainloop()
+   
